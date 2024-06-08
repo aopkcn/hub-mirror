@@ -51,7 +51,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              labels: ['成功']
+              labels: ['success']
             })
       # 6. 当以上步骤失败时，为 issues 添加 failure 标签，并为其添加失败原因评论
       - name: Failure issues
@@ -63,7 +63,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              labels: ['失败']
+              labels: ['failure']
             })
             github.rest.issues.createComment({
               issue_number: context.issue.number,
