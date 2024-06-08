@@ -13,7 +13,7 @@ jobs:
     # 运行环境
     runs-on: ubuntu-latest
     # 运行条件 => issues 的 label 包含 hub-mirror
-    if: contains(github.event.issue.labels.*.name, 'hub-mirror')
+    if: contains(github.event.issue.labels.*.name, '镜像推送')
     # 镜像转换任务的步骤列表
     steps:
       # 1. 切换分支（默认主分支）
@@ -43,7 +43,7 @@ jobs:
             })
       # 5. 当以上步骤成功时，为 issues 添加 success 标签
       - name: Success issues
-        if: ${{ success() }}
+        if: ${{ 成功() }}
         uses: actions/github-script@v5
         with:
           script: |
@@ -51,11 +51,11 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              labels: ['success']
+              labels: ['成功']
             })
       # 6. 当以上步骤失败时，为 issues 添加 failure 标签，并为其添加失败原因评论
       - name: Failure issues
-        if: ${{ failure() }}
+        if: ${{ 失败() }}
         uses: actions/github-script@v5
         with:
           script: |
@@ -63,7 +63,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              labels: ['failure']
+              labels: ['失败']
             })
             github.rest.issues.createComment({
               issue_number: context.issue.number,
